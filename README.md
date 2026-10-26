@@ -1,6 +1,6 @@
 # OneBridge
 
-现代化的 Windows OneDrive 同步与传输客户端。基于 Electron、React 与 rclone 构建，提供中文界面、任务分组、定时镜像同步、大文件分块传输与暂停/继续，以及传输完成后的自动电源操作。
+现代化的 Windows OneDrive 同步与传输客户端。基于 Electron、React 与 rclone 构建，中文界面、任务分组、定时镜像同步、大文件分块传输与暂停/继续，以及传输完成后的自动电源操作。
 
 OneDrive客户端的问题：
 
