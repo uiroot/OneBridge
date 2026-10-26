@@ -9,10 +9,11 @@ OneDrive客户端的问题：
 - OneDrive客户端同步时会大量占用cpu造成卡顿
 
 因此诞生了OneBridge
+
 > 当前版本针对**个人 Microsoft 账户**的 OneDrive 优化，仅提供 Windows x64 构建。
 
-<img width="2161" height="1368" alt="image" src="https://github.com/user-attachments/assets/e1ec4d57-cf51-4e7b-8526-038b32c7e102" />
-<img width="1266" height="1215" alt="image" src="https://github.com/user-attachments/assets/b71d6043-2a83-4bdb-98ed-e1d298f31ba3" />
+<img width="2161" height="1368" alt="image" src="https://github.com/user-attachments/assets/46f3342e-ef58-4cbc-bf85-e0325427b31a" />
+<img width="1266" height="1215" alt="image" src="https://github.com/user-attachments/assets/245bfe5f-fac4-4619-ab3c-8ef1c564b0b8" />
 
 
 ## 功能特性
