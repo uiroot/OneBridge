@@ -1,10 +1,20 @@
 # OneBridge
 
-现代化的 Windows OneDrive 同步与传输客户端。基于 Electron、React 与 rclone 构建，提供中文界面、任务分组、定时镜像同步、大文件分块传输与暂停/继续，以及传输完成后的自动电源操作。
+现代化的 Windows OneDrive 同步与传输客户端。基于 Electron、React 与 rclone 构建，中文界面、任务分组、定时镜像同步、大文件分块传输与暂停/继续，以及传输完成后的自动电源操作。
 
-> 本项目是第三方开源客户端，与 Microsoft 无隶属关系。OneDrive 是 Microsoft Corporation 的商标。
->
+OneDrive客户端的问题：
+
+- 需要将不同位置的文件移动或复制到OneDrive目录下才能同步，相当于有在电脑上临时复制了一份
+
+- OneDrive客户端同步时会大量占用cpu造成卡顿
+
+因此诞生了OneBridge
+
 > 当前版本针对**个人 Microsoft 账户**的 OneDrive 优化，仅提供 Windows x64 构建。
+
+<img width="2161" height="1368" alt="image" src="https://github.com/user-attachments/assets/46f3342e-ef58-4cbc-bf85-e0325427b31a" />
+<img width="1266" height="1215" alt="image" src="https://github.com/user-attachments/assets/245bfe5f-fac4-4619-ab3c-8ef1c564b0b8" />
+
 
 ## 功能特性
 
@@ -37,7 +47,6 @@
 - 传输队列与历史记录，包含失败原因、耗时、删除数量和触发方式。
 - 系统托盘常驻、开机自启、关闭到托盘、完成/失败通知。
 - 深色、浅色与跟随系统三种主题。
-- 网络代理：支持跟随系统、直连或自定义 HTTP / SOCKS5 代理，可填写认证信息，统一作用于登录、同步传输与 rclone 引擎下载。
 - rclone 引擎状态检测，可自动下载或手动指定 `rclone.exe`。
 - 配置导出/导入，可选是否包含账户凭证。
 
@@ -48,7 +57,7 @@
 | 桌面框架 | Electron 45 |
 | 界面 | React 19、TypeScript、Tailwind CSS 4、Zustand、lucide-react、sonner |
 | 构建 | electron-vite 6、Vite 8、electron-builder 26 |
-| 同步引擎 | 安装包内置 rclone 1.75.2；源码构建时自动下载当前稳定版（Windows x64） |
+| 同步引擎 | 内置 rclone 1.75.2（Windows x64） |
 | 数据存储 | JSON 配置 + rclone 配置文件 |
 
 主进程负责窗口、托盘、调度、任务执行、rclone 子进程、日志和电源操作；渲染进程通过 contextBridge 暴露的受限 IPC API 与主进程通信，不启用 Node 集成。
@@ -56,7 +65,7 @@
 ## 环境要求
 
 - Windows 10 / 11 x64
-- Node.js 22 LTS 或更高版本
+- Node.js 20 或更高版本
 - npm 10 或更高版本
 - 可访问 Microsoft 登录页与 OneDrive 的网络环境
 - 个人 Microsoft 账户
@@ -145,7 +154,7 @@ npm run build
 # 构建 Windows x64 解包目录（release/win-unpacked/）
 npm run pack:win
 
-# 构建 NSIS 安装包（release/OneBridge-1.0.3-Setup.exe）
+# 构建 NSIS 安装包（release/OneBridge-1.0.2-Setup.exe）
 npm run build:win
 ```
 
@@ -223,11 +232,6 @@ rclone 默认不会限速。OneBridge 也默认留空全局带宽限制，以最
 
 ## 更新记录
 
-### 1.0.3
-
-- 新增「设置 → 网络与代理」：可选择跟随系统、直连或自定义 HTTP / SOCKS5 代理，支持用户名与密码认证。
-- 代理统一作用于 OneDrive 登录与配额查询、rclone 同步传输、Microsoft Graph 请求与 rclone 引擎下载；保存后立即生效，新启动的传输使用新出口。
-
 ### 1.0.2
 
 - 多来源任务改为有上限的并行执行：最多 6 个来源同时传输，并共享「设置 → 性能」中的全局并发预算，避免大文件排在大量小文件之后。
@@ -235,16 +239,6 @@ rclone 默认不会限速。OneBridge 也默认留空全局带宽限制，以最
 - 暂停、继续和取消现在会同时作用于任务内所有并行 rclone 进程；取消产生的上下文错误不再计入失败摘要。
 - 传输页与任务卡片会显示「并行 N 个来源 · 已处理 X/Y」。
 
-## 安全与隐私
-
-- OneDrive OAuth 令牌保存在本机 `%APPDATA%\onebridge\rclone.conf`，不会上传到本项目。
-- 本项目不包含遥测或分析代码；网络请求仅用于 Microsoft 登录/OneDrive、rclone 下载与用户主动打开的外部链接。
-- 请不要把 `rclone.conf`、包含凭证的导出 JSON 或未脱敏日志提交到 GitHub、issue 或聊天记录。
-- 安全问题请按 [SECURITY.md](SECURITY.md) 私下报告。
-- 第三方组件与许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
-
 ## 许可
 
-项目采用 [MIT License](LICENSE)。
-
-安装包内同时包含 `resources/licenses/` 下的 OneBridge 许可证、第三方组件说明与 rclone 许可证文本。
+项目采用 MIT License。
